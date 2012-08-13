@@ -39,8 +39,10 @@ gem 'jquery-rails'
 
 # To fix ExecJS error
 gem 'therubyracer', :platforms => :ruby
-group :test do
+
+group :development,:test do
   gem 'capybara', '1.1.2'
+  gem 'rspec-rails',      ">= 2.0.0.beta"
 end
 
 group :production do
