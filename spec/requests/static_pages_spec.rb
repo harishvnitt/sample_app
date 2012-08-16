@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe "StaticPages" do
 	  describe "Home page" do
+  		it "should have base title " do
+  			visit root_path
+  			page.should have_selector('title',:text => 'Ruby on Rails Tutorial Sample App')
+ 		  end
  		  it "should not have custom page title" do
       		visit root_path
       		page.should_not have_selector('title',
