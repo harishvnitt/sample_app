@@ -14,6 +14,7 @@ describe "Authentication" do
     end
      describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
+      it { should have_link('Settings', href: edit_user_path(user)) }
       before do
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
@@ -30,4 +31,22 @@ describe "Authentication" do
         it { should_not have_selector('div.alert.alert-error') }
      end
   	end
+    describe "authorisation" do
+      describe "for non-signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe "in the Users controller" do
+
+        describe "visiting the edit page" do
+          before { visit edit_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "submitting to the update action" do
+          before { put user_path(user) }
+          specify { response.should redirect_to(signin_path) }
+        end
+      end
+      end
+    end
   end

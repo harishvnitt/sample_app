@@ -24,7 +24,3 @@ end
 Then /^he should see his profile page$/ do
   page.should have_selector('title', text: @user.name)
 end
-
-Then /^he should see a signout link$/ do
-  page.should have_link('Sign out', href: signout_path)
-end
