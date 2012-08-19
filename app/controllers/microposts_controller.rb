@@ -1,10 +1,12 @@
 class MicropostsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :destroy]
   before_filter :correct_user,   only: :destroy
+  caches_page :index,:correct_user,:create
   def index
   end
   def create
     @micropost = current_user.microposts.build(params[:micropost])
+    expire_page :action => :create
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url
